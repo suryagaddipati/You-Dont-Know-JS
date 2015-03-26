@@ -1,89 +1,22 @@
 # You Don't Know JS: Up & Going
 # Chapter 2: Into JavaScript
 
-In the previous chapter, I introduced the basic building blocks of programming, such as variables, loops, conditionals, and functions. Of course, all the code shown has been in JavaScript. But in this chapter, we want to focus specifically on things you need to know about JavaScript to get up and going as a JS developer.
-
-We will introduce quite a few concepts in this chapter that will not be fully explored until subsequent *YDKJS* books. You can think of this chapter as an overview of the topics covered in detail throughout the rest of this series.
-
-Especially if you're new to JavaScript, you should expect to spend quite a bit of time reviewing the concepts and code examples here multiple times. Any good foundation is laid brick by brick, so don't expect that you'll immediately understand it all the first pass through.
-
-Your journey to deeply learn JavaScript starts here.
-
-**Note:** As I said in Chapter 1, you should definitely try all this code yourself as you read and work through this chapter. Be aware that some of the code here assumes capabilities introduced in the newest version of JavaScript at the time of this writing (commonly referred to as "ES6" for the 6th edition of ECMAScript -- the official name of the JS specification). If you happen to be using an older, pre-ES6 browser, the code may not work. A recent update of a modern browser (like Chrome, Firefox, or IE) should be used.
-
 ## Values & Types
-
-As we asserted in Chapter 1, JavaScript has typed values, not typed variables. The following built-in types are available:
-
-* `string`
+* `string` `typeof "meow" == "String"`
 * `number`
 * `boolean`
-* `null` and `undefined`
+* `null` and `undefined` 
+    ```js
+    alert(typeof(null));      // object
+    alert(typeof(undefined)); // undefined
+
+    alert(null !== undefined) //true
+    alert(null == undefined)  //true
+    ```
 * `object`
 * `symbol` (new to ES6)
 
-JavaScript provides a `typeof` operator that can examine a value and tell you what type it is:
-
-```js
-var a;
-typeof a;				// "undefined"
-
-a = "hello world";
-typeof a;				// "string"
-
-a = 42;
-typeof a;				// "number"
-
-a = true;
-typeof a;				// "boolean"
-
-a = null;
-typeof a;				// "object" -- weird, bug
-
-a = undefined;
-typeof a;				// "undefined"
-
-a = { b: "c" };
-typeof a;				// "object"
-```
-
-The return value from the `typeof` operator is always one of six (seven as of ES6!) string values. That is, `typeof "abc"` returns `"string"`, not `string`.
-
-Notice how in this snippet the `a` variable holds every different type of value, and that despite appearances, `typeof a` is not asking for the "type of `a`", but rather for the "type of the value currently in `a`." Only values have types in JavaScript; variables are just simple containers for those values.
-
-`typeof null` is an interesting case, because it errantly returns `"object"`, when you'd expect it to return `"null"`.
-
-**Warning:** This is a long-standing bug in JS, but one that is likely never going to be fixed. Too much code on the Web relies on the bug and thus fixing it would cause a lot more bugs!
-
-Also, note `a = undefined`. We're explicitly setting `a` to the `undefined` value, but that is behaviorally no different from a variable that has no value set yet, like with the `var a;` line at the top of the snippet. A variable can get to this "undefined" value state in several different ways, including functions that return no values and usage of the `void` operator.
-
 ### Objects
-
-The `object` type refers to a compound value where you can set properties (named locations) that each hold their own values of any type. This is perhaps one of the most useful value types in all of JavaScript.
-
-```js
-var obj = {
-	a: "hello world",
-	b: 42,
-	c: true
-};
-
-obj.a;		// "hello world"
-obj.b;		// 42
-obj.c;		// true
-
-obj["a"];	// "hello world"
-obj["b"];	// 42
-obj["c"];	// true
-```
-
-It may be helpful to think of this `obj` value visually:
-
-<img src="fig4.png">
-
-Properties can either be accessed with *dot notation* (i.e., `obj.a`) or *bracket notation* (i.e., `obj["a"]`). Dot notation is shorter and generally easier to read, and is thus preferred when possible.
-
-Bracket notation is useful if you have a property name that has special characters in it, like `obj["hello world!"]` -- such properties are often referred to as *keys* when accessed via bracket notation. The `[ ]` notation requires either a variable (explained next) or a `string` *literal* (which needs to be wrapped in `" .. "` or `' .. '`).
 
 Of course, bracket notation is also useful if you want to access a property/key but the name is stored in another variable, such as:
 
@@ -98,10 +31,6 @@ var b = "a";
 obj[b];			// "hello world"
 obj["b"];		// 42
 ```
-
-**Note:** For more information on JavaScript `object`s, see the *this & Object Prototypes* title of this series, specifically Chapter 3.
-
-There are a couple of other value types that you will commonly interact with in JavaScript programs: *array* and *function*. But rather than being proper built-in types, these should be thought of more like subtypes -- specialized versions of the `object` type.
 
 #### Arrays
 
